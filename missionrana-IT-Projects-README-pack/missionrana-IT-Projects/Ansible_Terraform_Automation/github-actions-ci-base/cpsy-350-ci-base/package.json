@@ -1,0 +1,20 @@
+{
+  "name": "gh-action-ci",
+  "version": "1.0.0",
+  "description": "SAIT CPSY 350 Github Action CI Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha test/test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "mocha": "^10.3.0",
+    "should": "^13.2.3",
+    "supertest": "^6.3.4"
+  }
+}

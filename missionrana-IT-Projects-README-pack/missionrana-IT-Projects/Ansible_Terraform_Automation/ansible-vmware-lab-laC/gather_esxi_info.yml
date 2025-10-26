@@ -1,0 +1,26 @@
+---
+- name: Gather ESXi host information
+  hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    
+  vars_files:
+    - "vars/vcenter_server.yml"
+    - "vars/esxi_hosts.yml"
+
+  tasks:
+    - name: Gather ESXi host information from vCenter
+      community.vmware.vmware_host_facts:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        esxi_hostname: "{{ item }}"
+      register: host_facts_result
+      delegate_to: localhost
+      loop: "{{ esxi_hosts }}"
+
+    - name: The output of Product, Version, Build, Update info for ESXi hosts
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ host_facts_result.results }}"
